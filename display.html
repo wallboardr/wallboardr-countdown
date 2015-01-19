@@ -1,0 +1,4 @@
+<div ng-class="{'screen-message-recur': plugins.map['countdown'].scheduler.isScheduled(activeScreen.data)}">{{plugins.map['countdown'].scheduler.humanize(activeScreen.data)}}</div>
+<div>
+Countdown to {{activeScreen.data.targetDate}} {{activeScreen.data.targetTime}} until {{activeScreen.data.eventName}}
+</div>

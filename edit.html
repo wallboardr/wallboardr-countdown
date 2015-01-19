@@ -1,0 +1,11 @@
+<div class="form-panel">
+	<input type="text" ng-model="activeScreenEdit.data.targetDate" placeholder="Target Date" required>
+	<input type="text" ng-model="activeScreenEdit.data.targetTime" placeholder="Target Time">
+    <input type="text" ng-model="activeScreenEdit.data.eventName" placeholder="Target Event Name" required>
+
+	<div wb-schedule="activeScreenEdit.data" wb-scheduler="plugins.map['message'].scheduler"></div>
+	<div class="buttons">
+		<button ng-click="updateActiveScreen(editScreenForm)" class="success">Save</button>
+		<button ng-click="cancelEditScreen()" class="cancel">Cancel</button>
+	</div>
+</div>
