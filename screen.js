@@ -2,7 +2,7 @@ define(['lib/datetime-arrays', 'require', './admin'], function (dta, require) {
   'use strict';
   var plugin = require('./admin'),
       scheduler = plugin.config.scheduler,
-      getJsDate = function (dateArray, time) {
+      getUtcDate = function (dateArray, time) {
         var hours, mins, secs, ret, timeOk = dta.time.isValid(time);
         if (!dta.dateArray.isValid(dateArray)) {
           return null;
@@ -10,7 +10,7 @@ define(['lib/datetime-arrays', 'require', './admin'], function (dta, require) {
         hours = timeOk && time[0] || 0;
         mins = timeOk && time[1] || 0;
         secs = timeOk && time[2] || 0;
-        ret = new Date(dateArray[0], dateArray[1] - 1, dateArray[2], hours, mins, secs);
+        ret = Date.UTC(dateArray[0], dateArray[1] - 1, dateArray[2], hours, mins, secs);
         return ret;
       },
       pad = function (v) {
@@ -32,12 +32,12 @@ define(['lib/datetime-arrays', 'require', './admin'], function (dta, require) {
           }
           parsedDate = dta.dateArray.fromString(data.targetDate);
           parsedTime = data.targetTime ? dta.time.fromString(data.targetTime) : [0, 0, 0];
-          data.parsedTarget = getJsDate(parsedDate, parsedTime);
+          data.parsedTarget = getUtcDate(parsedDate, parsedTime);
           if (!data.parsedTarget) {
             return 'Invalid Target Date';
           }
         }
-        then = data.parsedTarget.getTime();
+        then = data.parsedTarget;
         now = (new Date()).getTime();
         //console.log(then, now, then - now);
         if (now >= then) {
